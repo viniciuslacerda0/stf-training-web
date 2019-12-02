@@ -7,4 +7,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   appTitle = 'Money App';
+  entrada = '';
+
+  clickMe(entrada){
+    this.appTitle = this.entrada;
+  }
 }
