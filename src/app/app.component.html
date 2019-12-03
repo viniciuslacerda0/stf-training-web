@@ -2,8 +2,18 @@
   <mat-toolbar-row>
     <span>{{appTitle}}</span>
   </mat-toolbar-row>
-
 </mat-toolbar>
 
-<input type="text" [(ngModel)] = 'entrada'>
-<button (click) ="clickMe()">Clica aqui</button>
+<section>
+    <div *ngIf="!categoryList.length; else categoryListComponent">
+      <p id="no-content">Oi! Espere ai mizera</p>
+    </div>
+    <ng-template #categoryListComponent>
+        <stf-category-list [categoryList]="categoryList"></stf-category-list>
+    </ng-template>
+
+</section>
+
+
+<!-- <input type="text"> !-->
+<!--<button (click) ="clickMe()">Clica aqui</button> !-->
