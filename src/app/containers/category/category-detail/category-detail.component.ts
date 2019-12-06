@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Output } from '@angular/core';
 import { FormControl, FormGroup, FormBuilder, Validators, NgForm } from '@angular/forms';
+import { CategoryService } from '../category.service';
 
 @Component({
   selector: 'stf-category-detail',
@@ -12,24 +13,20 @@ export class CategoryDetailComponent implements OnInit {
   @ViewChild('categoryFormModel', {static:false})
   public categoryFormModel: NgForm;
 
-
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private categoryService: CategoryService) { }
 
   ngOnInit() {
-    // this.formControlGroup = new FormGroup({
-    //   nomeControl: new FormControl()
-    // });
-
     this.categoryForm = this.formBuilder.group({
-      nomeControl: ['', [Validators.required, Validators.minLength(3)]]
+      nome: ['', [Validators.required, Validators.minLength(3)]]
     });
   }
 
   onSubmit(){
-    console.log(this.categoryForm);
 
+    this.categoryService.postCategory(this.categoryForm.value);
     this.categoryForm.reset();
     this.categoryFormModel.resetForm();
+    
   }
 
 }

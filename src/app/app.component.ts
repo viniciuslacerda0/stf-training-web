@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Category } from './core/entity/Category';
-import { CategoryService } from './containers/category/category.service';
+import { CategoryService, CategoryServiceType } from './containers/category/category.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'stf-root',
@@ -12,19 +13,19 @@ export class AppComponent implements OnInit {
   constructor(private categoryService: CategoryService){}
   
   ngOnInit() {
+    this.futuro = this.categoryService.categoryBehaviorSubject;
     this.getCategoryList();
   }
 
   appTitle = 'Money App';
 
-  categoryList: Array<Category> = new Array();
+  public categoryList: Array<Category> = new Array();
+
+  public futuro: BehaviorSubject<CategoryServiceType>;
 
   getCategoryList(){
-    this.categoryService.getCategoryList().subscribe(
-      result => {
-        this.categoryList = result;
-      }
-    );
+    this.categoryService.getCategoryList();
   }
+
 }
 
